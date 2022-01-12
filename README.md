@@ -13,7 +13,7 @@ The best way to watch YouTube by video chatting with friends.
   +  [Technologies planned to be used](#technologies-planned-to-be-used)
 + [Usage](#usage)
 + [Contributing](#contributing)
-+ [Contributers](#contributers)
++ [Contributors](#contributors)
 + [License](#license)
 
 ## Roadmap
@@ -60,7 +60,7 @@ npm start
 ## Contributing
 If you want to contribute to the project, please first **check** if the work you are doing is already an **issue**. If there is an issue and there is someone assigned to the issue, **contact that person**. If there is no issue, you can send your development to the project managers by opening a **pull request**. Please read [CONTRIBUTING.md](./CONTRIBUTING.md)
 
-## Contributers
+## Contributors
 <a href = "https://github.com/saracalihan/pingu/graphs/contributors">
   <img src = "https://contrib.rocks/image?repo=saracalihan/pingu"/>
 </a>
