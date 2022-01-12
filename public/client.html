@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .main {
+            display: flex;
+            flex-direction: row;
+        }
+
+        #messages {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            width: 250px;
+            height: 500px;
+            border: 1px solid grey;
+            overflow-y: scroll;
+        }
+
+        #messages .message {
+            margin: 5px;
+            padding: 5px;
+            border: 1px solid grey;
+            border-radius: 30px;
+        }
+
+        .sended {
+            background-color: blue;
+            align-self: flex-end;
+        }
+
+        .recived {
+            background-color: red;
+            align-self: flex-start;
+        }
+
+        .system-message {
+            background-color: grey;
+            align-self: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <div id="player"></div>
+        <div class="chat">
+            <div id="messages"></div>
+            <input type="text" id="message">
+            <button id="sendButton" onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/socket.io-client@4.4.0/dist/socket.io.min.js"></script>
+    <script>
+        let messageInput = document.getElementById('message');
+        let messages = document.getElementById('messages');
+        messageInput.focus();
+        const params = new URLSearchParams(document.location.search);
+        const [username, roomId, create] = [params.get('username'), params.get('roomId'), params.get('create')];
+
+        var socket = io('http://localhost:3000');
+        socket.emit(create ? 'create-room' : 'join-room', { username, roomId })
+
+        const addMessage = (data, isRecived = false) => {
+            console.log(data);
+            let message = document.createElement('span');
+            message.innerText = isRecived ? data.text : data;
+            message.className = `message ${isRecived ? (data.isSystemMessage ? 'system-message' : 'recived') : 'sended'}`;
+            messages.appendChild(message);
+        };
+
+        const addMessages = (messages) => {
+            messages.forEach(message => {
+                addMessage(message, true);
+            });
+        } 
+
+        function sendMessage() {
+            let message = messageInput.value;
+            addMessage(message);
+            socket.emit('message', {
+                message,
+                user: username,
+                roomId,
+            });
+            messageInput.value = '';
+            messageInput.focus();
+        }
+        socket.on('connect', e => {
+            socket.emit('room-info', roomId);
+
+        });
+        socket.on('message', (e) => {
+            addMessage(JSON.parse(e), true);
+        });
+        socket.on('room-info',(room)=> {
+            addMessages(room.messages);
+        })
+        socket.on('disconnect', (e) => {
+            messageInput.disabled = true;
+            document.getElementById('sendButton').disabled = true;
+        });
+
+
+        // // 2. This code loads the IFrame Player API code asynchronously.
+        // var tag = document.createElement('script');
+
+        // tag.src = "https://www.youtube.com/iframe_api";
+        // var firstScriptTag = document.getElementsByTagName('script')[1];
+        // firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        // // 3. This function creates an <iframe> (and YouTube player)
+        // //    after the API code downloads.
+        // var player;
+        // function onYouTubeIframeAPIReady() {
+        //     player = new YT.Player('player', {
+        //         height: '390',
+        //         width: '640',
+        //         videoId: 'M7lc1UVf-VE',
+        //         playerVars: {
+        //             'playsinline': 1
+        //         },
+        //         events: {
+        //             'onReady': onPlayerReady,
+        //             'onStateChange': onPlayerStateChange
+        //         }
+        //     });
+        // }
+
+        // // 4. The API will call this function when the video player is ready.
+        // function onPlayerReady(event) {
+        //     //alert('ready');
+        //     event.target.playVideo();
+        // }
+
+        // // 5. The API calls this function when the player's state changes.
+        // //    The function indicates that when playing a video (state=1),
+        // //    the player should play for six seconds and then stop.
+        // var done = false;
+        // function onPlayerStateChange(event) {
+        //     if (event.data == YT.PlayerState.PLAYING && !done) {
+        //         setTimeout(stopVideo, 6000);
+        //         done = true;
+        //     }
+        // }
+        // function stopVideo() {
+        //     //alert('stop');
+        //     player.stopVideo();
+        // }
+    </script>
+</body>
+
+</html>
