@@ -10,9 +10,11 @@ The best way to watch YouTube by video chatting with friends.
 
 ## Introduce
 + [Roadmap](#roadmap)
+  +  [Technologies planned to be used](#technologies-planned-to-be-used) 
 + [Usage](#usage)
 + [Contributing](#contributing)
 + [License](#license)
+
 ## Roadmap
 You can see what we've done before and what we will work on in the future.
 
@@ -26,14 +28,16 @@ You can see what we've done before and what we will work on in the future.
 - [ ] Voice and Video chat
 - [ ] New user interface
 - [ ] Basic test
-- [ ] Dockerize, CI/CD, GitHub Bots, pre-poduction
+- [ ] Dockerize, CI/CD, GitHub Bots, pre-production
 
 **production**
 - [ ] Theatre and fullscreen mode
 - [ ] Mobile user friendly interface
 - [ ] PWA
 
- 
+### Technologies planned to be used
+Node.js, TypeScript(optional), Nest.js, Socket.io, Redis, MongoDB, React, Next.js
+
 ## Usage
 ## Install
 ```bash
