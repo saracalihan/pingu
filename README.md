@@ -1,4 +1,9 @@
-# Pingu
+<h1 align="center">
+ <img width="200" src="https://tr.gravatar.com/userimage/183519138/efb93caed9ebdb11303b62379395458a.png?size=200"/>
+ <br/>
+ Pingu
+</h1>
+
 The best way to watch YouTube by video chatting with friends.
 
 > It is **not suitable** for **use** as it is still in the **pre-development** stage.
