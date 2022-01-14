@@ -1,0 +1,13 @@
+{
+    "verbose": true,
+    "watch": [
+        "src",
+        "public",
+        ".env",
+        "node_modules"
+    ],
+    "ignore": [
+        ".git"
+    ],
+    "ext": "js,json,html"
+}
