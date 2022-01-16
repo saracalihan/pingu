@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Room</title>
+</head>
+
+<body>
+    <form action="client.html" method="get">
+        <input type="text" name="username" placeholder="username"><br>
+        <button type="submit">Join</button>
+    </form>
+    <script>
+        let video = document.createElement('input'), room = document.createElement('input');
+        params = new URLSearchParams(document.location.search),
+            [roomId, videoUrl] = [params.get('roomId'), params.get('video')],
+            video.type = 'text'; video.name = 'video'; video.value = 'https://www.youtube.com/watch?v=' +videoUrl; video.style.display = 'none';
+        room.type = 'text'; room.name = 'roomId'; room.value = roomId; room.style.display = 'none';
+        document.getElementsByTagName('form')[0].appendChild(video);
+        document.getElementsByTagName('form')[0].appendChild(room);
+    </script>
+</body>
+
+</html>
